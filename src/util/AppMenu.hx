@@ -91,7 +91,7 @@ class AppMenu
 			]
 		});
 
-		var menu = electron.main.Menu.buildFromTemplate(template);
+		var menu = electron.main.Menu.buildFromTemplate(cast template);
 		electron.main.Menu.setApplicationMenu(menu);
 		// OGMO.app.setMenu(template);
 	}
