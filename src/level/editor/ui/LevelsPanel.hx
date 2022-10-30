@@ -37,8 +37,10 @@ class LevelsPanel extends SidePanel
 
 	override public function populate(into:JQuery):Void
 	{
+        // 清空挂载节点下的所有子物体，然后重建，该方法相当于Redraw
 		into.empty();
 
+        // 添加和搜索组件
 		var options = new JQuery('<div class="options">');
 		into.append(options);
 
@@ -52,6 +54,8 @@ class LevelsPanel extends SidePanel
 		searchbar.find("input").on("change keyup", refresh);
 		options.append(searchbar);
 
+
+        // level列表
 		// levels list
 		levels = new JQuery('<div class="levelsPanel">');
 		into.append(levels);
@@ -61,6 +65,7 @@ class LevelsPanel extends SidePanel
 		for (watcher in watchers) watcher.close();
 		watchers.resize(0);
 
+        // 创建容器
 		itemlist = new ItemList(levels);
 		items.resize(0);
 		item_count = 0;
@@ -143,8 +148,10 @@ class LevelsPanel extends SidePanel
 				}
 			}
 
+            // 遍历所有Level路径
 			for(i in 0...paths.length)
 			{
+                // NOTE: 经过测试这里只存在一个路径，即ogmo文件的路径
 				items[i] = {
 					path: paths[i],
 					dirname: Path.dirname(paths[i]),
@@ -179,6 +186,7 @@ class LevelsPanel extends SidePanel
 
 	override function refresh():Void
 	{
+        // 延迟150毫秒执行，此处的写法，如果短时间内调用refresh多次，则实际只会执行一次
 		if (refreshTimer == null) refreshTimer = Browser.window.setTimeout(() ->
 		{
 			refreshTimer = null;
@@ -189,6 +197,7 @@ class LevelsPanel extends SidePanel
 
 			itemlist.empty();
 
+            // 添加显示未保存的关卡
 			//Add unsaved levels
 			unsavedFolder = new ItemListFolder("Unsaved Levels", ":Unsaved");
 			unsavedFolder.setFolderIcons("folder-star-open", "folder-star-closed");
@@ -219,10 +228,12 @@ class LevelsPanel extends SidePanel
 
 			//Add root folders if necessary, and recursively populate them
 			if (OGMO.project != null) {
+                
 				for (panelItem in items)
 				{
 					panelItem.node = null;
 					var path = panelItem.path;
+                    // 文件丢失显示
 					if (!FileSystem.exists(path))
 					{
 						var broken = panelItem.node = new ItemListFolder(Path.basename(path), path);
@@ -265,6 +276,8 @@ class LevelsPanel extends SidePanel
 						for (item in panelItem.children) recursiveAdd(item, panelItem);
 					}
 				}
+
+                // 根据搜索类型过滤显示
 				// Search or use remembered expand states
 				if (currentSearch != "")
 				{
@@ -370,6 +383,7 @@ class LevelsPanel extends SidePanel
 		}
 	}
 
+    // 获取搜索框中的内容
 	function getSearchQuery():String
 	{
 		return searchbar.find("input").val();
@@ -382,8 +396,7 @@ class LevelsPanel extends SidePanel
 	function selectLevel(node: ItemListNode):Void
 	{
 		inline function openLevel(data:String) {
-			EDITOR.levelManager.open(data, null,
-			function (error)
+			EDITOR.levelManager.open(data, null,function (error)
 			{
 				Popup.open("Invalid Level File", "warning", "<span class='monospace'>" + Path.basename(data) + "</span> is not a valid level file!<br /><span class='monospace'>" + error + "</span>", ["Okay", "Delete It", "Open With Default Program"], function(i)
 				{

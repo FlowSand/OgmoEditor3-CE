@@ -6,6 +6,7 @@ import util.ItemList;
 import util.Fields;
 import project.editor.ValueTemplateManager;
 
+// Project属性面板的Entities Tab
 class ProjectEntitiesPanel extends ProjectEditorPanel
 {
 	public static function startup()

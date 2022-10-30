@@ -19,7 +19,6 @@ import util.Vector;
 
 class Ogmo
 {
-
 	public static var ogmo:Ogmo;
 	public static var editor:Editor;
 	public static var startPage:StartPage;
@@ -36,7 +35,8 @@ class Ogmo
 	public var root:String = untyped Remote.app.getAppPath();
 	public var execDir(get, never):String;
 
-	public var project(default, set):Project = null;
+	public var project(default, set):Project = null;    // 当前打开的项目运行时信息
+
 	public var startTime(default, null):Float = js.lib.Date.now();
 	public var lastTime(default, null):Float = js.lib.Date.now();
 	public var deltaTime(default, null):Float = 0;

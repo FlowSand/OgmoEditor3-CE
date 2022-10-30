@@ -3,6 +3,7 @@ package modules.tiles;
 import util.Fields;
 import project.editor.LayerTemplateEditor;
 
+// TileLayer的Inspector
 class TileLayerTemplateEditor extends LayerTemplateEditor
 {
 	public var exportMode:JQuery;

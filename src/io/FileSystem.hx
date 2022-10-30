@@ -21,6 +21,7 @@ class FileSystem
 		return haxe.io.Path.normalize(path);
 	}
 
+    // 弹窗选择一个文件
 	public static function chooseFile(title:String, filters:Array<FileFilter>, ?defaultPath:String)
 	{
 		if (defaultPath != null)
@@ -40,6 +41,7 @@ class FileSystem
 		return '';
 	}
 
+    // 选择一个文件进行保存
 	public static function chooseSaveFile(title:String, filters:Array<FileFilter>, ?defaultPath:String):String
 	{
 		if (defaultPath != null)
@@ -57,6 +59,7 @@ class FileSystem
 		return '';
 	}
 
+    // 选中一个文件夹
 	public static function chooseFolder(title:String):String
 	{
 		var files = Ogmo.dialog.showOpenDialogSync(
@@ -70,6 +73,7 @@ class FileSystem
 		return '';
 	}
 
+    // 弹窗警告信息
 	public static function showQuestion(title:String, question:String, confirm:String, deny:String):Bool
 	{
 		var result = Ogmo.dialog.showMessageBoxSync(
@@ -87,6 +91,7 @@ class FileSystem
 		return (result == 0);
 	}
 
+    // 文件是否存在
 	public static function removeFolder(dir:String)
 	{
 		if (!exists(dir)) return;

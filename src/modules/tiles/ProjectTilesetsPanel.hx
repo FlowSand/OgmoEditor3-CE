@@ -10,6 +10,7 @@ import util.RightClickMenu;
 import util.ItemList;
 import project.editor.ProjectEditorPanel;
 
+// Project属性面板的Tilesets Tab
 class ProjectTilesetsPanel extends ProjectEditorPanel
 {
 	public static function startup()

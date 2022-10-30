@@ -24,6 +24,7 @@ typedef Files =
 	?subdirs: Array<Files>
 }
 
+// Layer面板Back/Fore Layer的数据对象
 class DecalLayerTemplate extends LayerTemplate
 {
 	public static function startup()

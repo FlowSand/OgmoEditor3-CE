@@ -8,6 +8,7 @@ enum RelativeTo
 	LEVEL;
 }
 
+// 路径数据，有一定的工具性质接口
 class FilepathData
 {
 	public var relativeTo:RelativeTo;

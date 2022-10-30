@@ -2,6 +2,7 @@ package project.editor;
 
 import js.jquery.JQuery;
 
+// Proejct面板基类，主要用于控制在Tab列表中的行为
 class ProjectEditorPanel
 {
 	public var id:String;

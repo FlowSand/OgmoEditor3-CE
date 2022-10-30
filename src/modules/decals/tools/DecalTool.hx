@@ -2,6 +2,7 @@ package modules.decals.tools;
 
 import level.editor.Tool;
 
+// Decal的笔刷行为
 class DecalTool extends Tool
 {
 	public var layerEditor(get, never):DecalLayerEditor;

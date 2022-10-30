@@ -133,13 +133,15 @@ textarea, input, button, select { font-family: inherit; }
         line-height: 24px;
         vertical-align: middle;
     }
-
+    
+    // 当按钮下方有列表时，去掉左下和右下角的圆角
     &-squarebottom
     {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
+    // 鼠标悬浮时，文字和图片加粗
     &:hover, &:focus
     {
         font-weight: bold;

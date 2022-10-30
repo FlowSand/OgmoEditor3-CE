@@ -13,6 +13,7 @@ import util.Vector;
 
 class Export
 {
+    // 保留关键字
 	static var reservedWords = [
 		"_eid",
 		"_name",

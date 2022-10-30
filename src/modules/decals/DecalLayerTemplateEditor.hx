@@ -4,6 +4,7 @@ import util.Fields;
 import project.editor.ValueTemplateManager;
 import project.editor.LayerTemplateEditor;
 
+// Layer面板Back/Fore Layer的编辑器
 class DecalLayerTemplateEditor extends LayerTemplateEditor
 {
 

@@ -3,6 +3,7 @@ package modules.decals;
 import js.Browser;
 import level.editor.ui.SidePanel;
 
+// Decal元素取色板
 class DecalPalettePanel extends SidePanel
 {
 	public var layerEditor: DecalLayerEditor;

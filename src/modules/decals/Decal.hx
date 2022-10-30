@@ -3,6 +3,7 @@ package modules.decals;
 import level.data.Value;
 import rendering.Texture;
 
+// 贴花物体
 class Decal
 {
 	public var position:Vector;

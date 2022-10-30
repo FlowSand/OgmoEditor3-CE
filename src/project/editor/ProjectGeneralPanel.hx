@@ -5,6 +5,7 @@ import util.Vector;
 import util.Color;
 import util.Fields;
 
+// 项目的基本属性页
 class ProjectGeneralPanel extends ProjectEditorPanel
 {
 	public static function startup()
@@ -30,6 +31,7 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 		super(0, "general", "General", "sliders");
 		// general settings
 
+        // 项目名、目录深度
 		projectName = Fields.createField("Project Name");
 		Fields.createSettingsBlock(root, projectName, SettingsBlock.TwoThirds, "Name", SettingsBlock.InlineTitle);
 
@@ -38,6 +40,7 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 
 		Fields.createLineBreak(root);
 
+        // Hook脚本和命令
 		externalScript = Fields.createFilepath("External Script", true, [{name: 'External Script', extensions: ['js']}], null, function() { Fields.setPath(externalScript, ''); });
 		Fields.createSettingsBlock(root, externalScript, SettingsBlock.Half, "External Script", SettingsBlock.InlineTitle);
 
@@ -46,6 +49,7 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 
 		Fields.createLineBreak(root);
 
+        // 编辑状态下的背景和Grid颜色
 		backgroundColor = Fields.createColor("Background Color", Color.white, root);
 		Fields.createSettingsBlock(root, backgroundColor, SettingsBlock.Half, "Bg Color", SettingsBlock.InlineTitle);
 
@@ -54,23 +58,27 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 
 		Fields.createLineBreak(root);
 
+        // Json导出设置
 		var options = new Map();
 		options.set('0', 'Pretty');
 		options.set('1', 'Compact');
 		compactExport = Fields.createOptions(options);
 		Fields.createSettingsBlock(root, compactExport, SettingsBlock.Third, "JSON Export Format", SettingsBlock.InlineTitle);
 
+        // 角度设置
 		options = new Map();
 		options.set('0', 'Radians');
 		options.set('1', 'Degrees');
 		angleExport = Fields.createOptions(options);
 		Fields.createSettingsBlock(root, angleExport, SettingsBlock.Third, "Angle Export Mode", SettingsBlock.InlineTitle);
 
+        // Grid大小（默认8*8）
 		layerGridDefaultSize = Fields.createVector(new Vector(0, 0));
 		Fields.createSettingsBlock(root, layerGridDefaultSize, SettingsBlock.Third, "Layer Grid Default Size", SettingsBlock.InlineTitle);
 
 		Fields.createLineBreak(root);
 
+        // 关卡尺寸限制
 		// level size
 		levelMinSize = Fields.createVector(new Vector(0, 0));
 		Fields.createSettingsBlock(root, levelMinSize, SettingsBlock.Half, "Min. Level Size", SettingsBlock.InlineTitle);
@@ -81,6 +89,7 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 		levelValueManager = new ValueTemplateManager(root, [], 'Level Values');
 	}
 
+    // 页面打开时从OGMO.project中读取数据
 	override function begin(reset:Bool = false):Void
 	{
 		Fields.setField(projectName, OGMO.project.name);
@@ -99,6 +108,7 @@ class ProjectGeneralPanel extends ProjectEditorPanel
 		levelValueManager.refreshList();
 	}
 
+    // 页面关闭时将JQuery组件中的值填充回OGMO.project中
 	override function end():Void
 	{
 		OGMO.project.name = projectName.val();

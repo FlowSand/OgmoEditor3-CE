@@ -4,6 +4,7 @@ import level.editor.ui.SidePanel;
 import rendering.Texture;
 import level.editor.LayerEditor;
 
+// Editor场景下Decal层的编辑器
 class DecalLayerEditor extends LayerEditor
 {
 	public var brush:Texture;

@@ -37,6 +37,7 @@ class ProjectEditor
 		});
 	}
 
+    // 添加一个Panel到tab列表中
 	public function addPanel(panel:ProjectEditorPanel):Void
 	{
 		// create tab
@@ -61,12 +62,14 @@ class ProjectEditor
 		panels.push(panel);
 	}
 
+    // 通过id对比获取指定panel
 	public function getPanel(id:String):ProjectEditorPanel
 	{
 		for (i in 0...panels.length) if (panels[i].id == id) return panels[i];
 		return null;
 	}
 
+    // 选中某个panel进行显示
 	public function setPanel(panel:ProjectEditorPanel):Void
 	{
 		if (this.panel != panel)

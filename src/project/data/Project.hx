@@ -13,6 +13,7 @@ import util.Vector;
 
 class Project
 {
+    // 基础数据
 	public var name:String;
 	public var levelPaths:Array<String> = [ '.' ];
 	public var backgroundColor:Color = Color.fromHex("#282c34", 1);
@@ -25,15 +26,18 @@ class Project
 	public var directoryDepth:Int = 5;
 	public var layerGridDefaultSize = new Vector(8, 8);
 
+    // level相关数据
 	public var levelDefaultSize:Vector = new Vector(320, 240);
 	public var levelMinSize:Vector = new Vector(128, 128);
 	public var levelMaxSize:Vector = new Vector(4096, 4096);
 	public var levelValues:Array<ValueTemplate> = [];
 
+    // entity、layer、tileset层的数据数组
 	public var entities:EntityTemplateList = new EntityTemplateList();
 	public var layers:Array<LayerTemplate> = [];
 	public var tilesets:Array<Tileset> = [];
 
+    // 不会被导出的数据
 	//Not exported
 	public var path:String;
 	public var lastSavePath:String;
@@ -53,18 +57,21 @@ class Project
 		for (tileset in tilesets) tileset.texture.dispose();
 	}
 
+    // 根据ID获取指定Entity模板
 	public function getEntityTemplate(id:Int):EntityTemplate
 	{
 		if (id >= 0 && id < entities.templates.length) return entities.templates[id];
 		return null;
 	}
 
+    // 根据ExportID获取指定Entity模板
 	public function getEntityTemplateByExportID(exportID:String): EntityTemplate
 	{
 		for (entity in entities.templates) if (entity.exportID == exportID) return entity;
 		return null;
 	}
 	
+    // 根据name获取tileset
 	public function getTileset(name:String):Tileset
 	{
 		for (tileset in tilesets) if (tileset.label == name) return tileset;
@@ -72,6 +79,7 @@ class Project
 		return null;
 	}
 
+    // ID生成器
 	public function getNextLayerTemplateExportID():String
 	{
 		return Std.string(new Date().getTime()).substring(4, 8) + Std.string(Math.random()).substring(2, 6);
@@ -87,6 +95,7 @@ class Project
 		return _nextUnsavedLevelID++;
 	}
 
+    // 关卡相关路径
 	/*
 		LEVEL PATHS
 	*/

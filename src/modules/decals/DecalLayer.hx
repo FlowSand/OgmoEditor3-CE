@@ -4,6 +4,7 @@ import rendering.Texture;
 import js.node.Path;
 import level.data.Layer;
 
+// 编辑场景下的贴花层管理器，管理了当前Level中一个DecalLayer层的所有Decal对象
 class DecalLayer extends Layer
 {
 	public var decals:Array<Decal> = [];

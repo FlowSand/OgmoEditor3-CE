@@ -6,6 +6,7 @@ import level.data.Value;
 import util.ItemList.ItemListItem;
 import level.editor.ui.SidePanel;
 
+// Decal的属性设置面板（在Palette下方）
 class DecalSelectionPanel extends SidePanel
 {
 	public var holder: JQuery;
