@@ -22,6 +22,7 @@ class AppMenu
 	{
 		var template:Array<MenuTemplate> = [];
 
+        // IOX平台特定顶部栏
 		if (process.platform == 'darwin') template.push({
 			label: 'Ogmo',
 			submenu: [
@@ -80,6 +81,7 @@ class AppMenu
 		template.push({
 			label: 'Help',
 			submenu: [
+                // 发送事件，在App中监听消息并弹窗
 				{ label: 'About Ogmo Editor', click: sendMsg.bind(IPC_MSG_HELP_ABOUT) },
 				{ label: 'Controls', click: sendMsg.bind(IPC_MSG_HELP_CONTROLS) },
 				{ type: 'separator' },
@@ -91,6 +93,7 @@ class AppMenu
 			]
 		});
 
+        // 创建顶部工具栏
 		var menu = electron.main.Menu.buildFromTemplate(cast template);
 		electron.main.Menu.setApplicationMenu(menu);
 		// OGMO.app.setMenu(template);

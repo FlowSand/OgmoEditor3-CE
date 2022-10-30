@@ -14,6 +14,7 @@ typedef ToolInfoControl =
     ?subAction:Bool
 }
 
+// 顶部栏/快捷键手册
 class Controls
 {
     // General
@@ -434,6 +435,7 @@ class Controls
 ';
     }
 
+    // 绘制工具表格
     private static function table(toolInfo:ToolInfo):String
     {
         var iconStr = toolInfo.icon != null ? '&nbsp;<span class="icon icon-${toolInfo.icon}"></span>' : '';

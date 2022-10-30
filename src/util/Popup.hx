@@ -635,6 +635,7 @@ class Popup
 		var perColumn = 6;
 		var columnWidth = 300;
 
+        // 将Level的属性划分为两列显示
 		if (level.values.length > perColumn && level.values.length < perColumn * 2)
 			perColumn = Math.ceil(level.values.length / 2);
 

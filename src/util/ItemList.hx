@@ -292,6 +292,7 @@ class ItemListNode
 	}
 }
 
+// ProjectEntity模板界面 左边的列表
 class ItemListFolder extends ItemListNode
 {
 	public function new(label:String, ?data:Dynamic)

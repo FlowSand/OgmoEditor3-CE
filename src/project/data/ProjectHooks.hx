@@ -3,6 +3,7 @@ package project.data;
 import sys.io.File;
 import js.node.vm.Script;
 
+// 用于设置Project的钩子脚本，用于在数据IO时做一些定制的操作
 class ProjectHooks
 {
 	private var script:Script;

@@ -137,6 +137,9 @@ extern class FSWatcher extends js.node.fs.FSWatcher
 	public function on(event:String, listener:Void->Void):FSWatcher;
 }
 
+// Minimal and efficient cross-platform file watching library
+// https://www.npmjs.com/package/chokidar
+
 // TODO - ran tests and decided not to use. Separate out into its own haxelib lib? - austin
 @:jsRequire("chokidar")
 extern class Chokidar

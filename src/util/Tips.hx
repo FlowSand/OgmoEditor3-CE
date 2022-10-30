@@ -1,5 +1,6 @@
 package util;
 
+// 废弃未使用
 class Tips
 {
 	public var icon:String;

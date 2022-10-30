@@ -419,6 +419,7 @@ class Editor
 		handles = new LevelResizeHandles();
 	}
 
+    // 设置当前正在显示的Level
 	public function setLevel(level: Level):Void
 	{
 		var layerId = 0;
@@ -426,12 +427,14 @@ class Editor
 			layerId = this.level.currentLayerID;
 
 		beforeSetLayer();
+        // 修改Level对象
 		this.level = level;
 		if (this.level != null)
 			setLayerUtil(layerId);
 
 		updateZoomReadout();
 		handles.refresh();
+        // 刷新列表显示，改变Selected状态
 		levelsPanel.refreshLabelsAndIcons();
 		OGMO.updateWindowTitle();
 		dirty();

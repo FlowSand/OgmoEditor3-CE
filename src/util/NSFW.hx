@@ -39,6 +39,8 @@ typedef Event =
 	 ?newFile:String
 }
 
+// 文件监视器，看起来并没有在这个项目中使用，不再深究
+// https://www.npmjs.com/package/nsfw
 @:jsRequire('nsfw')
 extern class NSFW
 {

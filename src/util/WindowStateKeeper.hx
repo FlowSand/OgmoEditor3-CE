@@ -12,6 +12,8 @@ typedef WindowStateKeeperOptions =
 	?fullscreen:Bool
 } 
 
+// A library to store and restore window sizes and positions for your Electron app
+// https://www.npmjs.com/package/electron-window-state
 @:jsRequire('electron-window-state')
 extern class WindowStateKeeper
 {

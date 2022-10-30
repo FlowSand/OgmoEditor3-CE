@@ -175,6 +175,7 @@ class Ogmo
 		for (i in 0...keyPressMap.length) keyPressMap[i] = false;
 	}
 
+    // 根据编辑器状态更新顶部栏信息
 	public function updateWindowTitle():Void
 	{
 		var edited = false;

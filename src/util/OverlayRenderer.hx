@@ -4,6 +4,7 @@ import js.html.CanvasElement;
 import js.html.CanvasRenderingContext2D;
 import level.data.Level;
 
+// 废弃未使用
 class OverlayRenderer
 {
 

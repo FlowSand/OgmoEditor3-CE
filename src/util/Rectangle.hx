@@ -1,7 +1,9 @@
 package util;
 
+// 矩形定义
 class Rectangle
 {
+    // 左上角为原点，x朝右，y朝下
 	public var x: Float;
 	public var y: Float;
 	public var width: Float;

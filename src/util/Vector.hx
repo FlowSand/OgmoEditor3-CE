@@ -1,5 +1,6 @@
 package util;
 
+// 二维矢量
 class Vector
 {
 	public var x:Float;
