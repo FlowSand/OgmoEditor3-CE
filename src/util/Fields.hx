@@ -26,6 +26,9 @@ typedef FieldAttributes = {
 
 class Fields
 {
+    // 一般一组控件API包括创建，从控件中获取值，将值写入到控件三个API
+    
+    // 创建一个文本输入控件
 	public static function createField(label:String, ?value:String, ?into:JQuery, ?attributes:FieldAttributes):JQuery
 	{
 		var element = new JQuery('<input>', attributes);
@@ -77,6 +80,7 @@ class Fields
 	}
 
 
+    // 创建一个文本域控件
 	public static function createTextarea(label:String, ?value:String, ?into:JQuery):JQuery
 	{
 		var element = new JQuery('<textarea>');
@@ -104,6 +108,8 @@ class Fields
 		return element;
 	}
 
+
+    // 二维向量控件
 	public static function createVector(vector:Vector, ?into:JQuery):JQuery
 	{
 		var holder = new JQuery('<div class="vector"></div>');
@@ -129,6 +135,8 @@ class Fields
 		return vec;
 	}
 
+    
+    // 布尔型CheckBox
 	public static function createCheckbox(set:Bool, label:String, ?into:JQuery):JQuery
 	{
 		var element = Fields.createButton(set ? "yes" : "no", label);
@@ -157,6 +165,8 @@ class Fields
 		return (element.find(".button_icon").hasClass("icon-yes"));
 	}
 
+
+    // 按钮控件
 	public static function createButton(icon:String, label:String, ?into:JQuery):JQuery
 	{
 		var element = new JQuery('<button>');
@@ -183,6 +193,8 @@ class Fields
 		return element;
 	}
 
+
+    // 颜色控件
 	public static function createColor(label:String, color:Color, ?into:JQuery, ?onChange:Color->Void):JQuery
 	{
 		var element = new JQuery('<div class="color-box">');
@@ -218,6 +230,8 @@ class Fields
 		return Color.fromHex(element.attr("data-hex"), Imports.float(element.attr("data-alpha"), 1));
 	}
 
+
+    // 创建一个选项域块
 	public static function createSettingsBlock(into:JQuery, element:JQuery, ?size:SettingsBlock, ?label:String, ?labelType:SettingsBlock):JQuery
 	{
 		var holder = new JQuery('<div class="settingblock">');
@@ -254,6 +268,8 @@ class Fields
 		return holder;
 	}
 
+
+    // 分隔线
 	public static function createBreak(?into:JQuery):JQuery
 	{
 		var element = new JQuery('<div class="setting_break">');
@@ -268,6 +284,7 @@ class Fields
 		return element;
 	}
 
+    // 下拉选项框
 	public static function createOptions(list:Map<String, String>, ?into:JQuery):JQuery
 	{
 		var element = new JQuery('<select>');
@@ -276,6 +293,8 @@ class Fields
 		return element;
 	}
 
+
+    // 文件夹/文件路径
 	public static function createFolderpath(path:String, deleteable:Bool, ?into:JQuery, ?onDelete:Void->Void):JQuery
 	{
 		var holder = new JQuery('<div class="filepath">');
@@ -309,36 +328,36 @@ class Fields
 	}
 
 	public static function createFilepath(path:String, clearable:Bool, filters:Array<electron.FileFilter>, ?into:JQuery, ?onClear:Void->Void):JQuery
-		{
-			var holder = new JQuery('<div class="filepath">');
-			var element = new JQuery('<input disabled>');
-			element.val(path);
-			holder.append(element);
-	
-			var button = Fields.createButton("save", "Select", holder);
-			button.on("click", function()
-			{
-				var chosenPath = FileSystem.chooseFile("Select File", filters);
-				if (chosenPath.length == 0)
-					return;
-				var folder = FileSystem.normalize(Path.relative(Path.dirname(OGMO.project.path), chosenPath));
-				element.val(folder);
-			});
-	
-			if (clearable)
-			{
-				var clear = Fields.createButton("no", "Clear", holder);
-				clear.on("click", function()
-				{
-					if (onClear != null) onClear();
-					if (into != null) holder.remove();
-				});
-			}
-	
-			if (into != null) into.append(holder);
-	
-			return holder;
-		}
+    {
+        var holder = new JQuery('<div class="filepath">');
+        var element = new JQuery('<input disabled>');
+        element.val(path);
+        holder.append(element);
+
+        var button = Fields.createButton("save", "Select", holder);
+        button.on("click", function()
+        {
+            var chosenPath = FileSystem.chooseFile("Select File", filters);
+            if (chosenPath.length == 0)
+                return;
+            var folder = FileSystem.normalize(Path.relative(Path.dirname(OGMO.project.path), chosenPath));
+            element.val(folder);
+        });
+
+        if (clearable)
+        {
+            var clear = Fields.createButton("no", "Clear", holder);
+            clear.on("click", function()
+            {
+                if (onClear != null) onClear();
+                if (into != null) holder.remove();
+            });
+        }
+
+        if (into != null) into.append(holder);
+
+        return holder;
+    }
 
 	public static function setPath(element:JQuery, val:String):JQuery
 	{
@@ -350,6 +369,8 @@ class Fields
 		return element.find("input").val();
 	}
 
+
+    // 也是文件夹路径选择控件，相对于上面两种，多了相对/绝对路径切换
 	public static function createFilepathData(path:FilepathData, filters:Array<electron.FileFilter>, ?into:JQuery):JQuery
 	{
 		var holder = new JQuery('<div class="filepath">');

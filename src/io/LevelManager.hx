@@ -29,6 +29,7 @@ class LevelManager
 		forceCreate();
 	}
 
+    // 强制创建一个新的level并选中
 	public function forceCreate(): Level
 	{
 		var level = new Level(OGMO.project);
@@ -222,6 +223,7 @@ class LevelManager
 		return false;
 	}
 
+    // 打开的关卡数量有上限，关闭一些
 	function enforceLimit(onSuccess:Void->Void):Void
 	{
 		//First do a safe-to-close trim

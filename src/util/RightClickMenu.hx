@@ -2,6 +2,7 @@ package util;
 
 import js.jquery.JQuery;
 
+// 各种列表的Item右键点击菜单项
 class RightClickMenu
 {
 	public static var instance:RightClickMenu = null;

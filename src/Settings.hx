@@ -9,6 +9,7 @@ import util.ItemList;
 import Ogmo.startPage as STARTPAGE;
 import electron.Shell;
 
+// 应该是用来展示最近打开的项目列表
 class Settings
 {
 

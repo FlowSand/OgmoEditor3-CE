@@ -5,6 +5,7 @@ import js.RegExp;
 using Math;
 using StringTools;
 
+// 自定义颜色类型（可能haxe没有内置的color，或者自定方便可以扩展操作函数）
 class Color
 {
 	public var r:Float;
@@ -167,6 +168,7 @@ class Color
 		return color;
 	}
 
+    // 颜色预设
 	public static var transparent:Color = new Color(0, 0, 0, 0);
 	public static var black:Color = new Color(0, 0, 0, 1);
 	public static var white:Color = new Color(1, 1, 1, 1);

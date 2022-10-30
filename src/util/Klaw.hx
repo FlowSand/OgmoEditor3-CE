@@ -28,6 +28,8 @@ typedef WalkerOptions =
 	?preserveSymlinks: Bool
 }
 
+// 用于从某个Root目录遍历读取所有文件，然后进行一些处理
+// https://www.npmjs.com/package/klaw
 @:jsRequire("klaw")
 extern class Walker extends Readable<Walker>
 {

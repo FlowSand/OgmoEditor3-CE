@@ -19,21 +19,21 @@ class AppMenu {
 	public static function build() {
 		var template:Array<MenuTemplate> = [];
 
-		if (process.platform == 'darwin')
-			template.push({
-				label: 'Ogmo',
-				submenu: [
-					{role: 'about'},
-					{type: 'separator'},
-					{role: 'services'},
-					{type: 'separator'},
-					{role: 'hide'},
-					{role: 'hideothers'},
-					{role: 'unhide'},
-					{type: 'separator'},
-					{role: 'quit'}
-				]
-			});
+        // IOX平台特定顶部栏
+		if (process.platform == 'darwin') template.push({
+			label: 'Ogmo',
+			submenu: [
+				{ role: 'about' },
+				{ type: 'separator' },
+				{ role: 'services' },
+				{ type: 'separator' },
+				{ role: 'hide' },
+				{ role: 'hideothers' },
+				{ role: 'unhide' },
+				{ type: 'separator' },
+				{ role: 'quit' }
+			]
+		});
 
 		// TODO - add menu items based on the current app state
 		// if (Ogmo.startPage.active)
@@ -78,17 +78,19 @@ class AppMenu {
 		template.push({
 			label: 'Help',
 			submenu: [
-				{label: 'About Ogmo Editor', click: sendMsg.bind(IPC_MSG_HELP_ABOUT)},
-				{label: 'Controls', click: sendMsg.bind(IPC_MSG_HELP_CONTROLS)},
-				{type: 'separator'},
-				{label: 'Website', click: openExternalURL.bind(About.WEBSITE_URL)},
-				{label: 'User Manual', click: openExternalURL.bind(About.USER_MANUAL_URL)},
-				{label: 'Community Forum', click: openExternalURL.bind(About.COMMUNITY_FORUM_URL)},
-				{label: 'Source Code', click: openExternalURL.bind(About.SOURCE_CODE_URL)},
-				{label: 'Report Issue', click: openExternalURL.bind(About.REPORT_ISSUE_URL)},
+                // 发送事件，在App中监听消息并弹窗
+				{ label: 'About Ogmo Editor', click: sendMsg.bind(IPC_MSG_HELP_ABOUT) },
+				{ label: 'Controls', click: sendMsg.bind(IPC_MSG_HELP_CONTROLS) },
+				{ type: 'separator' },
+				{ label: 'Website', click: openExternalURL.bind(About.WEBSITE_URL) },
+				{ label: 'User Manual', click: openExternalURL.bind(About.USER_MANUAL_URL) },
+				{ label: 'Community Forum', click: openExternalURL.bind(About.COMMUNITY_FORUM_URL) },
+				{ label: 'Source Code', click: openExternalURL.bind(About.SOURCE_CODE_URL) },
+				{ label: 'Report Issue', click: openExternalURL.bind(About.REPORT_ISSUE_URL) },
 			]
 		});
 
+        // 创建顶部工具栏
 		var menu = electron.main.Menu.buildFromTemplate(cast template);
 		electron.main.Menu.setApplicationMenu(menu);
 		// OGMO.app.setMenu(template);

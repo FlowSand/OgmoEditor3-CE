@@ -1,5 +1,6 @@
 package util;
 
+// 二维矩阵操作
 class Matrix
 {
 
@@ -42,6 +43,7 @@ class Matrix
 		return this;
 	}
 
+    // 偏移
 	public function setTranslation(x:Float, y:Float):Matrix
 	{
 		a = 1;

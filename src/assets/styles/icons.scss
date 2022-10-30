@@ -6,6 +6,12 @@
     float: left;
     display: inline;
 }
+
+// Icon构造原理：
+// 一般Html中显示一个图片要使用img element，不过此App中使用的都是<div class="icon icon-XX"></div>
+// 其外层的css主要用于控制布局盒子，::after伪类用于实现图片显示
+// icon::after负责织造一个带颜色的盒子，icon-xx::after负责给伪类设置一个image mask
+// 该mask中带颜色的部分会显示出底层颜色，用这种方式也能比较方便的控制整个app的icon一致性
 .icon::after
 {
     content: "\00a0";

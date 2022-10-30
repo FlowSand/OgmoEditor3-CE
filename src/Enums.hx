@@ -1,3 +1,4 @@
+// 通用枚举
 @:enum
 abstract TileExportModes (Int) from Int to Int
 {

@@ -1,6 +1,8 @@
 package util;
 
 import haxe.io.Path;
+
+// 看起来没有被使用过，不过功能应该是复制某个路径下的文件到另外一个路径下
 /**
  * Macro for copying assets from one folder to another
  */

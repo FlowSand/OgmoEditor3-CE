@@ -3,6 +3,7 @@ package util;
 import js.jquery.Event;
 import js.jquery.JQuery;
 
+// 顶部栏/关于ogmo弹窗
 class About
 {
     public static inline var WEBSITE_URL = "https://ogmo-editor-3.github.io/";

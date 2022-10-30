@@ -1,5 +1,6 @@
 package util;
 
+// 键盘按键枚举，如果暂时不做键盘快捷键，则没必要迁移
 @:enum
 abstract Keys(Int) from Int to Int
 {

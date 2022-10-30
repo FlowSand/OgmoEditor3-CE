@@ -3,6 +3,7 @@ package level.editor.ui;
 import js.jquery.JQuery;
 import project.data.LayerTemplate;
 
+// Editor界面Layer子窗口的列表项
 class LayerButton
 {
 	public var jqRoot:JQuery;

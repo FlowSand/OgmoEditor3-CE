@@ -40,7 +40,7 @@ class LevelsPanel extends SidePanel
         // 清空挂载节点下的所有子物体，然后重建，该方法相当于Redraw
 		into.empty();
 
-        // 添加和搜索组件
+        // 工具搜索栏
 		var options = new JQuery('<div class="options">');
 		into.append(options);
 
@@ -54,18 +54,19 @@ class LevelsPanel extends SidePanel
 		searchbar.find("input").on("change keyup", refresh);
 		options.append(searchbar);
 
-
-        // level列表
+        // 关卡面板列表
 		// levels list
 		levels = new JQuery('<div class="levelsPanel">');
 		into.append(levels);
 
+        // 获取关卡目录的绝对路径
 		var paths = OGMO.project.getAbsoluteLevelDirectories();
 
+        // 重置文件监视器
 		for (watcher in watchers) watcher.close();
 		watchers.resize(0);
 
-        // 创建容器
+        // 列表根节点
 		itemlist = new ItemList(levels);
 		items.resize(0);
 		item_count = 0;
@@ -74,9 +75,11 @@ class LevelsPanel extends SidePanel
 		if (OGMO.project != null) {
 			function recursiveAdd(path:String, stats:Stats, parent:PanelItem):Bool
 			{
+                js.Lib.debug();
 				if (OGMO.project == null) return false;
 				if (stats == null) stats = FileSystem.stat(path);
 
+                // 如果是当前Parent的根目录下
 				// if item's directory is the root folder, add to that
 				var dirname = Path.dirname(path);
 				if (dirname == parent.path)
@@ -95,6 +98,7 @@ class LevelsPanel extends SidePanel
 
 						item_count++;
 					}
+                    // 过滤掉后缀.ogmo的项目文件
 					else if (stats.isFile() && path != OGMO.project.path)
 					{
 						// Add File
@@ -106,12 +110,14 @@ class LevelsPanel extends SidePanel
 						item_count++;
 					}
 
+                    // 列表数量过多提示
 					if (!warning_displayed && item_count > 10000)
 					{
 						Popup.open('Large Project Directory Detected', 'warning', 'The Project is currently in a directory with over 10000 files/sub-directories. This may impact negatively Ogmo Editor\'s performance. Consider moving the Project to a smaller directory, or limiting the Project\'s Directory Depth (located in the Project Editor).', ['Okay']);
 						warning_displayed = true;
 					}
 
+                    // 延迟刷新
 					refresh();
 					return true;
 				}
@@ -133,6 +139,7 @@ class LevelsPanel extends SidePanel
 
 			function recursiveRemove(path:String, parent:PanelItem)
 			{
+				js.Lib.debug();
 				if (parent.children == null) return;
 				for (child in parent.children)
 				{
@@ -148,7 +155,7 @@ class LevelsPanel extends SidePanel
 				}
 			}
 
-            // 遍历所有Level路径
+            // 经断点查看，这里应该就一个path，即当前项目.ogmo文件所在的目录
 			for(i in 0...paths.length)
 			{
                 // NOTE: 经过测试这里只存在一个路径，即ogmo文件的路径
@@ -158,6 +165,7 @@ class LevelsPanel extends SidePanel
 					children: FileSystem.stat(paths[i]).isDirectory() ? [] : null
 				}
 
+                // Chokidar 是一个库，用于监视某个文件目录下的文件变化，然后执行相应的事件
 				watchers[i] = Chokidar.watch(paths[i], {depth: OGMO.project.directoryDepth })
 				.on('add', (path:String, stats:Stats) ->
 				{
@@ -228,12 +236,12 @@ class LevelsPanel extends SidePanel
 
 			//Add root folders if necessary, and recursively populate them
 			if (OGMO.project != null) {
-                
+                // 遍历已经准备好的目录树结构，但这里目前只有一个panelItem
 				for (panelItem in items)
 				{
 					panelItem.node = null;
 					var path = panelItem.path;
-                    // 文件丢失显示
+                    // 如果路径不存在，则添加一个文件broekn的图标
 					if (!FileSystem.exists(path))
 					{
 						var broken = panelItem.node = new ItemListFolder(Path.basename(path), path);
@@ -243,12 +251,14 @@ class LevelsPanel extends SidePanel
 					}
 					else if (panelItem.children != null)
 					{
+                        // 递归遍历添加Folder和FileNode
 						function recursiveAdd(item:PanelItem, parent:PanelItem)
 						{
 							item.node = null;
 							// if item's directory is the root folder, add to that
 							if (item.dirname == parent.path)
 							{
+                                // folder
 								var filename = EDITOR.levelManager.getDisplayName(item.path);
 								if (item.children != null)
 								{
@@ -257,6 +267,7 @@ class LevelsPanel extends SidePanel
 									// Events
 									foldernode.onrightclick = inspectFolder;
 								}
+                                // File
 								else if (item.path != OGMO.project.path)
 								{
 									// Add File
@@ -270,6 +281,7 @@ class LevelsPanel extends SidePanel
 							if (item.children != null) for (child in item.children) recursiveAdd(child, item);
 						}
 
+                        // 添加根部Folder 节点
 						var addTo = panelItem.node = itemlist.add(new ItemListFolder(Path.basename(path), path));
 						addTo.onrightclick = inspectFolder;
 						addTo.setFolderIcons("folder-dot-open", "folder-dot-closed");
@@ -389,6 +401,7 @@ class LevelsPanel extends SidePanel
 		return searchbar.find("input").val();
 	}
 
+
 	/*
 		CLICKS
 	*/
@@ -424,6 +437,7 @@ class LevelsPanel extends SidePanel
 			return;
 		}
 
+        // 根据关卡保存文件的扩展名，选取加载方式
 		var split = (cast node.data : String).split(".");
 
 		switch (split[split.length -1]){
@@ -448,6 +462,7 @@ class LevelsPanel extends SidePanel
 		}
 	}
 
+    // 右键菜单：普通目录
 	function inspectFolder(node: ItemListNode):Void
 	{
 		var menu = new RightClickMenu(OGMO.mouse);
@@ -555,6 +570,7 @@ class LevelsPanel extends SidePanel
 		menu.open();
 	}
 
+    // 右键菜单：未保存的文件目录
 	function inspectUnsavedFolder(node: ItemListNode):Void
 	{
 		var menu = new RightClickMenu(OGMO.mouse);
@@ -570,6 +586,7 @@ class LevelsPanel extends SidePanel
 		menu.open();
 	}
 
+    // 右键菜单：损坏的文件夹
 	function inspectBrokenFolder(node: ItemListNode):Void
 	{
 		var menu = new RightClickMenu(OGMO.mouse);
@@ -594,6 +611,7 @@ class LevelsPanel extends SidePanel
 		menu.open();
 	}
 
+    // 右键菜单：未保存的关卡
 	function inspectUnsavedLevel(node:ItemListNode):Void
 	{
 		var level = EDITOR.levelManager.get(node.data);
@@ -609,6 +627,7 @@ class LevelsPanel extends SidePanel
 		menu.open();
 	}
 
+    // 右键菜单：普通关卡
 	function inspectLevel(node:ItemListNode):Void
 	{
 		var menu = new RightClickMenu(OGMO.mouse);

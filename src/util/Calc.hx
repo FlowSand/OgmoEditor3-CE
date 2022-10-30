@@ -68,6 +68,7 @@ class Calc
 		return ret;
 	}
 
+    // bresenham划线算法
 	public static function bresenham(x1:Int, y1:Int, x2:Int, y2:Int):Array<Vector>
 	{
 		// TODO - check this out? -01010111
